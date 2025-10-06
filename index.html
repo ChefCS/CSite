@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact • Pen Test Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#0b1220; --bg2:#0e1b2e; --glass:rgba(255,255,255,.06);
+    --border:rgba(255,255,255,.12); --text:#e7eefc; --muted:#a0b3d6; --accent:#67e8f9;
+    --accent2:#60a5fa; --error:#f87171; --ok:#34d399;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text);
+    background: radial-gradient(1200px 800px at 85% -10%, #1e3a8a22, transparent 60%),
+                radial-gradient(1000px 700px at -10% 100%, #0891b222, transparent 60%),
+                linear-gradient(180deg, var(--bg1), var(--bg2));
+  }
+  .wrap{min-height:100%; display:grid; place-items:center; padding:48px 16px}
+  .hero{max-width:960px; margin:0 auto 28px; text-align:center}
+  .badge{display:inline-block; padding:6px 12px; border:1px solid var(--border); border-radius:999px; color:var(--muted); font-size:12px; letter-spacing:.08em}
+  h1{margin:.6rem 0 0; font-size: clamp(32px, 6vw, 56px); line-height:1.05}
+  .lead{color:var(--muted); margin:10px auto 0; max-width:720px; font-size: clamp(15px, 2.6vw, 18px)}
+  .card{
+    width:100%; max-width:720px; margin:28px auto 0; padding:28px;
+    background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    backdrop-filter: blur(10px); border:1px solid var(--border); border-radius:16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    animation: floatin .7s ease both;
+  }
+  @keyframes floatin{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none}}
+  form{display:grid; gap:16px}
+  .row{display:grid; gap:16px; grid-template-columns:1fr 1fr}
+  @media (max-width:680px){.row{grid-template-columns:1fr}}
+  label{font-size:13px; color:var(--muted); margin-bottom:6px; display:block}
+  input, textarea{
+    width:100%; padding:14px 14px; background:var(--glass); color:var(--text);
+    border:1px solid var(--border); border-radius:12px; outline:none; transition:.2s border, .2s box-shadow;
+  }
+  input::placeholder, textarea::placeholder{color:#9db1d4aa}
+  input:focus, textarea:focus{border-color:#8ab4ff66; box-shadow:0 0 0 4px #60a5fa22}
+  textarea{min-height:140px; resize:vertical}
+  .btn{
+    appearance:none; border:0; border-radius:12px; padding:14px 18px; font-weight:700; letter-spacing:.02em;
+    background:linear-gradient(90deg, var(--accent), var(--accent2)); color:#0b1220; cursor:pointer;
+    transition:transform .06s ease, filter .2s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn[disabled]{opacity:.6; cursor:not-allowed; filter:grayscale(.3)}
+  .meta{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:13px; margin-top:6px}
+  .status{margin-top:8px; font-size:14px}
+  .ok{color:var(--ok)} .err{color:var(--error)}
+  .foot{margin-top:28px; text-align:center; color:#8ea6cf; font-size:12px}
+  .tiny{opacity:.6}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="hero">
+      <span class="badge">PENETRATION TESTING • SECURITY ASSESSMENT</span>
+      <h1>Let’s talk about your security needs</h1>
+      <p class="lead">Use the form below to reach me directly. You’ll get a quick reply with next steps and a proposed scope.</p>
+    </div>
+
+    <section class="card">
+      <!-- Replace YOUR_FORM_ID with your Formspree form ID, e.g. f/mqkvwxyz -->
+      <form id="contact" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <div class="row">
+          <div>
+            <label for="name">Full name</label>
+            <input id="name" name="name" placeholder="Ada Lovelace" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="ada@example.com" required />
+          </div>
+        </div>
+
+        <div>
+          <label for="phone">Phone <span class="tiny">(optional)</span></label>
+          <input id="phone" name="phone" type="tel" placeholder="+1 (555) 123-4567" inputmode="tel" />
+        </div>
+
+        <div>
+          <label for="message">How can I help?</label>
+          <textarea id="message" name="message" placeholder="Briefly describe your environment and goals…" required></textarea>
+        </div>
+
+        <!-- Extras -->
+        <input type="hidden" name="_subject" value="New inquiry from website">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <button class="btn" id="submitBtn" type="submit">Send message</button>
+        <div id="status" class="status" aria-live="polite"></div>
+        <div class="meta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          Your info is sent securely to Formspree; no server of mine stores it.
+        </div>
+      </form>
+      <div class="foot">© <span id="yr"></span> Pen Test Services</div>
+    </section>
+  </main>
+
+<script>
+  // Footer year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  const form = document.getElementById('contact');
+  const statusEl = document.getElementById('status');
+  const btn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = 'Sending…';
+    statusEl.className = 'status';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        statusEl.textContent = 'Thanks! Your message has been sent.';
+        statusEl.classList.add('ok');
+        form.reset();
+      } else {
+        const data = await res.json().catch(()=> ({}));
+        const msg = data?.errors?.[0]?.message || 'Something went wrong. Please try again.';
+        statusEl.textContent = msg;
+        statusEl.classList.add('err');
+      }
+    } catch (err) {
+      statusEl.textContent = 'Network error. Please check your connection and try again.';
+      statusEl.classList.add('err');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
